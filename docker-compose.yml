@@ -1,0 +1,51 @@
+version: '3'
+services:
+  #Neo4J Database container
+  neo4j:
+    image: neo4j:3.4
+    ports:
+      - "7474:7474"
+      - "7687:7687"
+    expose:
+      - "7474"
+      - "7687"
+    volumes:
+      - ./db/data:/data
+    environment:
+      - NEO4J_HEAP_MEMORY=2048
+      - NEO4J_CACHE_MEMORY=1G
+      - NEO4J_AUTH=neo4j/@abc123
+
+  #Selenium Hub container
+  # hub:
+  #   ports:
+  #     - 4444:4444
+  #   image: selenium/hub:3.141.5-astatine
+  #   volumes:
+  #     - /dev/shm/:/dev/shm/
+
+  # #Selenium chrome driver container
+  # chrome:
+  #   environment:
+  #     VIRTUAL_HOST: node.chrome.docker
+  #     HUB_PORT_4444_TCP_ADDR: hub
+  #     HUB_PORT_4444_TCP_PORT: 4444
+  #     NODE_MAX_INSTANCES: 5
+  #     NODE_MAX_SESSION: 5
+  #   image: selenium/node-chrome-debug:3.141.5-astatine
+  #   ports:
+  #     - 5900:5900
+  #   links:
+  #     - hub
+  #   volumes:
+  #     - /dev/shm/:/dev/shm/
+
+  #main container for the web application
+  api:
+    image: mcr.microsoft.com/dotnet/core/sdk:2.2
+    command: dotnet /api/LifeHack.Api.dll
+    restart: always
+    ports:
+      - "8080:80"
+    volumes: 
+      - ./LifeHack/LifeHack.Api/bin/Debug/netcoreapp2.2/:/api/
