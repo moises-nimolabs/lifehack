@@ -16,9 +16,9 @@ CREATE (g)-[r4:Path]->(f)
 CREATE (s)-[r5:Path]->(a)
 CREATE (s)-[r6:Path]->(p)
 
-CREATE (i)-[r7:Path]->(o)
-CREATE (f)-[r8:Path]->(r)
+CREATE (i)-[r7:Result]->(o)
+CREATE (f)-[r8:Result]->(r)
 
 
-CREATE (a)-[r9:Path]->(o)
-CREATE (p)-[r10:Path]->(r)
+CREATE (a)-[r9:Result]->(o)
+CREATE (p)-[r10:Result]->(r)

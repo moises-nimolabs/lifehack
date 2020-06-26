@@ -1,6 +1,6 @@
 package com.lifehack.data.controllers;
 
-import com.lifehack.data.entities.GoalNodeEntity;
+import com.lifehack.data.entities.Goal;
 import com.lifehack.data.repositories.GoalRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,8 +17,9 @@ public class GoalController {
         this.goalRepository = goalRepository;
     }
 
-    @GetMapping("/goal/")
-    public GoalNodeEntity get(@RequestParam Long id) {
-        return goalRepository.findById(id).get();
+    @GetMapping(value = "/goal/", produces = {"application/json"})
+    public Goal get(@RequestParam Long id) {
+        Goal response = goalRepository.findBySequence(1).get();
+        return response;
     }
 }
