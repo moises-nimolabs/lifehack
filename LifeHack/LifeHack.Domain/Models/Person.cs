@@ -4,7 +4,7 @@ using System.Text;
 
 namespace LifeHack.Domain.Models
 {
-    class Person
+    public class Person
     {
     }
 }
