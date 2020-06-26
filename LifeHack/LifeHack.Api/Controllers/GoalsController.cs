@@ -7,17 +7,16 @@ namespace LifeHack.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ValuesController : ControllerBase
+    public class GoalsController : ControllerBase
     {
 
         private readonly IHttpClientFactory _clientFactory;
 
-        public ValuesController(IHttpClientFactory clientFactory)
+        public GoalsController(IHttpClientFactory clientFactory)
         {
             this._clientFactory = clientFactory;
         }
 
-        // GET api/values
         [HttpGet]
         public async Task<Goal> Get()
         {
@@ -27,31 +26,6 @@ namespace LifeHack.Api.Controllers
             var response = await client.SendAsync(request);
             var goal = await response.Content.ReadAsAsync<Goal>();
             return goal;
-        }
-
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/values
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
-
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
         }
     }
 }
