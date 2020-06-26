@@ -22,7 +22,7 @@ public class GoalController {
     }
 
     @GetMapping(value = "/goal/", produces = {"application/json"})
-    public Goal get(@RequestParam Long id) {
+    public Goal get(@RequestParam Integer id) {
         Goal response = goalRepository.findBySequence(1).get();
         return response;
     }

@@ -22,3 +22,12 @@ CREATE (f)-[r8:Path]->(r)
 
 CREATE (a)-[r9:Path]->(o)
 CREATE (p)-[r10:Path]->(r)
+/*
+Only comment when using to create a person for testing
+
+
+CREATE(person:Person{name:'Paul'})
+CREATE(person)<-[:ChosenBy]-(s)
+CREATE(person)<-[:ChosenBy]-(p)
+CREATE(person)<-[:ChosenBy]-(o)
+*/

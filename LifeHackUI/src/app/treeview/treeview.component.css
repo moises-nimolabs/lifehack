@@ -46,10 +46,10 @@
   margin-left: 180px;
 }
 
-.system-main {
+.tree-view-li {
 }
 
-.system-main__apps {
+.tree-view-title {
   background: #0981b1;
   color: #fff;
   padding: 14px;
@@ -60,15 +60,15 @@
   backface-visibility: hidden;
 }
 
-.system-main__apps__expanded {
+.three-view-title-expanded {
   background: #24292e;
 }
 
-.system-main__apps__final {
+.three-view-title-final {
   background: darkred;
 }
 
-.system-main__apps:hover {
+.tree-view-title:hover {
   background: #5f1aff;
   cursor: pointer;
 }

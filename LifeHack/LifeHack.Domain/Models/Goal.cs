@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace LifeHack.Domain.Models
 {
+    /// <summary>
+    /// Encapsulates a Goal data transfer object.
+    /// </summary>
     public class Goal : Entity
     {
         [JsonProperty("name")]

@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace LifeHack.Domain.Models
 {
+    /// <summary>
+    /// Encapsulates a Person data transfer object.
+    /// </summary>
     public class Person : Entity
     {
         [JsonProperty("name")]
