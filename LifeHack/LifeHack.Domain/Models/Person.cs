@@ -1,10 +1,13 @@
-﻿using System;
+﻿using Newtonsoft.Json;
 using System.Collections.Generic;
-using System.Text;
 
 namespace LifeHack.Domain.Models
 {
-    public class Person
+    public class Person : Entity
     {
+        [JsonProperty("name")]
+        public string Name { get; set; }
+        [JsonProperty("goals")]
+        public List<Goal> Goals { get; set; }
     }
 }
