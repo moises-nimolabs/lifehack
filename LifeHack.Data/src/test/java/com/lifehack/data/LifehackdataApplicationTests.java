@@ -8,6 +8,6 @@ class LifehackdataApplicationTests {
 
     @Test
     void contextLoads() {
-    }
 
+    }
 }

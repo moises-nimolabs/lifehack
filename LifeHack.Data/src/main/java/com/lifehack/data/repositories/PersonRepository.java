@@ -10,6 +10,6 @@ import java.util.Optional;
 @Service
 public interface PersonRepository extends Neo4jRepository<Person, Long> {
 
-    @Query("MATCH(p:Person{name:$name}) RETURN p")
+    @Query("MATCH(target:Person{name:$name}) RETURN target, [ (target)<-[c:ChosenBy]-(child:Goal) | [c, child] ] ")
     Optional<Person> findByName(String name);
 }
