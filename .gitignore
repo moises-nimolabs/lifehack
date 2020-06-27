@@ -41,6 +41,7 @@ msbuild.wrn
 ### IntelliJ IDEA ###
 **/target/
 **/logs/
+**/webapps/lifehackdata/
 .idea
 *.iws
 *.iml
