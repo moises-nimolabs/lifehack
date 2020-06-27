@@ -4,7 +4,6 @@ import com.lifehack.data.entities.Goal;
 import com.lifehack.data.repositories.GoalRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /***
@@ -22,7 +21,7 @@ public class GoalController {
     }
 
     @GetMapping(value = "/goal/", produces = {"application/json"})
-    public Goal get(@RequestParam Integer id) {
+    public Goal get() {
         Goal response = goalRepository.findBySequence(1).get();
         return response;
     }

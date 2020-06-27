@@ -16,6 +16,17 @@ services:
       - NEO4J_CACHE_MEMORY=1G
       - NEO4J_AUTH=neo4j/@abc123
 
+  #Data Access Layer Endpoint
+  data:
+    image: tomcat:latest
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./LifeHack.Data/webapps:/usr/local/tomcat/webapps
+      - ./LifeHack.Data/logs:/usr/local/tomcat/logs
+    links:
+      - neo4j
+
   #Selenium Hub container
   # hub:
   #   ports:
