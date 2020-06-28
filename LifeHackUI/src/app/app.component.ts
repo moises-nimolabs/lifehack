@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Goal} from './models/goal';
-
+import { environment } from './../environments/environment';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -14,7 +14,7 @@ export class AppComponent implements OnInit{
   constructor(private http: HttpClient) {  }
 
   ngOnInit(): void {
-    this.http.get<Goal>('http://localhost:8000/api/goals')
+    this.http.get<Goal>(`${environment.apiEndpoint}/goals`)
       .subscribe((data: Goal) => {
         console.log(data);
         this.list = [data];

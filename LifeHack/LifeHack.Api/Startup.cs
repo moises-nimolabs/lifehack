@@ -32,6 +32,13 @@ namespace LifeHack.Api
                 app.UseDeveloperExceptionPage();
             }
 
+            //don't use for production
+            app.UseCors(builder => builder
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .AllowCredentials());
+
             app.UseMvc();
         }
     }
