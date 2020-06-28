@@ -144,7 +144,7 @@
 }
 
 .tree-view ul {
-  padding-top: 20px; position: relative;
+  padding-top: 20px; position: center;
   transition: all 0.5s;
   -webkit-transition: all 0.5s;
   -moz-transition: all 0.5s;
@@ -163,14 +163,16 @@
 
 .tree-view li::before, .tree li::after{
   content: '';
+  left: auto;
   position: absolute; top: 0; right: 50%;
   width: 50%; height: 20px;
 }
 .tree-view li::after{
-  right: auto; left: 50%;
+  right: auto;
+  left: 50%;
   border-left: 1px solid #ccc;
 }
 
 .tree-view li:only-child::after, .tree li:only-child::before {
-  display: none;
+  display: inline-block;
 }

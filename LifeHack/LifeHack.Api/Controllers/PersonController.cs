@@ -1,5 +1,6 @@
 ﻿using LifeHack.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -14,10 +15,12 @@ namespace LifeHack.Api.Controllers
     public class PersonController : ControllerBase
     {
         private readonly IHttpClientFactory _clientFactory;
+        private readonly string _lifeHackDataEndpoint;
 
-        public PersonController(IHttpClientFactory clientFactory)
+        public PersonController(IHttpClientFactory clientFactory, IConfiguration configuration)
         {
-            this._clientFactory = clientFactory;
+            _clientFactory = clientFactory;
+            _lifeHackDataEndpoint = configuration.GetSection("LifeHackData").GetSection("Endpoint").Value;
         }
         /// <summary>
         /// Updates a Person and his Goals relationships
@@ -27,7 +30,7 @@ namespace LifeHack.Api.Controllers
         [HttpPost]
         public async Task<Person> Post(Person model)
         {
-            var request = new HttpRequestMessage(HttpMethod.Get, "http://localhost:8080/person");
+            var request = new HttpRequestMessage(HttpMethod.Get, $"{_lifeHackDataEndpoint}/person");
             request.Method = HttpMethod.Post;
             request.Content = new StringContent(JsonConvert.SerializeObject(model));
             var client = _clientFactory.CreateClient();

@@ -1,85 +1,23 @@
 import {Component, OnInit} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Goal} from './models/goal';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
   title = 'LifeHackUI';
-  public list = [
-    {
-      id: 16,
-      "sequence": 1,
-      "name": "What do you plan to do",
-      "goals": [
-        {
-          id: 18,
-          sequence: 2,
-          name: "I'm going to the Gym",
-          goals: [
-            {
-              id: 19,
-              sequence: 3,
-              name: "I want to be an Instructor",
-              goals: [
-                {
-                  id: 23,
-                  sequence: 4,
-                  name: "Poor",
-                  goals: null
-                }
-              ]
-            },
-            {
-              id: 0,
-              sequence: 3,
-              name: "I want to be a Fighter",
-              goals: [
-                {
-                  id: 22,
-                  sequence: 4,
-                  name: "I am Rich",
-                  goals: null
-                }
-              ]
-            }
-          ]
-        },
-        {
-          id: 17,
-          sequence: 2,
-          name: "I'm going to the School",
-          goals: [
-            {
-              id: 20,
-              sequence: 3,
-              name: "I want to be Academic",
-              goals: [
-                {
-                  id: 23,
-                  sequence: 4,
-                  name: "I am Poor",
-                  goals: null
-                }
-              ]
-            },
-            {
-              id: 21,
-              sequence: null,
-              name: "I want to be a professional",
-              goals: [
-                {
-                  id: 22,
-                  sequence: 4,
-                  name: "I am Rich",
-                  goals: null
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    }
-  ];
+  public list;
+
+  constructor(private http: HttpClient) {  }
+
+  ngOnInit(): void {
+    this.http.get<Goal>('http://localhost:8000/api/goals')
+      .subscribe((data: Goal) => {
+        console.log(data);
+        this.list = [data];
+      });
+  }
 }

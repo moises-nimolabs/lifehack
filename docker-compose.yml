@@ -2,6 +2,7 @@ version: '3'
 services:
   #Neo4J Database container
   neo4j:
+    container_name: neo4j-lifehack
     image: neo4j:3.4
     ports:
       - "7474:7474"
@@ -18,6 +19,7 @@ services:
 
   #Data Access Layer Endpoint
   data:
+    container_name: data-lifehack
     image: tomcat:latest
     ports:
       - "8080:8080"
@@ -26,6 +28,22 @@ services:
       - ./LifeHack.Data/logs:/usr/local/tomcat/logs
     links:
       - neo4j
+
+  #Main C# .Net Core Api for the Application Services
+  api:
+    container_name: api-lifehack
+    image: mcr.microsoft.com/dotnet/core/sdk:2.2
+    command: dotnet /api/LifeHack.Api.dll
+    restart: always
+    environment: 
+      ASPNETCORE_ENVIRONMENT: Development
+    ports:
+      - "8000:80"
+    volumes: 
+      - ./wwwroot/api/:/api/
+    links: 
+      - neo4j
+      - data
 
   #Selenium Hub container
   # hub:
@@ -50,13 +68,3 @@ services:
   #     - hub
   #   volumes:
   #     - /dev/shm/:/dev/shm/
-
-  #main container for the web application
-  api:
-    image: mcr.microsoft.com/dotnet/core/sdk:2.2
-    command: dotnet /api/LifeHack.Api.dll
-    restart: always
-    ports:
-      - "8080:80"
-    volumes: 
-      - ./LifeHack/LifeHack.Api/bin/Debug/netcoreapp2.2/:/api/

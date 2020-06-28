@@ -1,5 +1,7 @@
-﻿using LifeHack.Domain.Models;
+﻿using System;
+using LifeHack.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -12,25 +14,27 @@ namespace LifeHack.Api.Controllers
     [ApiController]
     public class GoalsController : ControllerBase
     {
-
         private readonly IHttpClientFactory _clientFactory;
+        private readonly string _lifeHackDataEndpoint;
 
-        public GoalsController(IHttpClientFactory clientFactory)
+        public GoalsController(IHttpClientFactory clientFactory, IConfiguration configuration)
         {
-            this._clientFactory = clientFactory;
+            _clientFactory = clientFactory;
+            _lifeHackDataEndpoint = configuration.GetSection("LifeHackData").GetSection("Endpoint").Value;
         }
+
         /// <summary>
         /// Gets the first Goal with the sequence=1
         /// </summary>
         /// <returns>The main Goal with child three object Goals</returns>
-
         [HttpGet]
         public async Task<Goal> Get()
         {
-            var request = new HttpRequestMessage(HttpMethod.Get, "http://localhost:8080/goal/?id=1");
             var client = _clientFactory.CreateClient();
+            var request = new HttpRequestMessage(HttpMethod.Get, $"{_lifeHackDataEndpoint}/goal/?id=1");
             var response = await client.SendAsync(request);
             var responseObject = await response.Content.ReadAsAsync<Goal>();
+
             return responseObject;
         }
     }
