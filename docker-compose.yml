@@ -1,8 +1,43 @@
+# cleanup all the containers docker container prune
 version: '3'
 services:
-  #Neo4J Database container
+
+  # clean: docker-compose run build-data mvn clean
+  # build: docker-compose run build-data mvn clean install deploy
+  build-data:
+    image: maven:3.3-jdk-8
+    container_name: lifehack-build-data
+    working_dir: /home/app/src/   
+    volumes: 
+      - ./LifeHack.Data/:/home/app/src/
+      - ./LifeHack.Data/target/:/home/app/target/
+    build: 
+      context: ./LifeHack.Data/
+
+  # clean: docker-compose run build-api dotnet clean
+  # build: docker-compose run build-api dotnet build
+  # publish: docker-compose run build-api dotnet publish
+  build-api:
+    image: mcr.microsoft.com/dotnet/core/sdk:2.2
+    container_name: lifehack-build-api
+    working_dir: /api/
+    volumes: 
+      - ./LifeHack/:/api/
+    build: 
+      context: ./LifeHack/
+
+  # build: docker-compose run build-web npm run-script dist
+  build-web:
+    image: node:12.2.0
+    container_name: lifehack-build-web
+    working_dir: /web/
+    volumes: 
+      - ./LifeHackUI/:/web/
+    build: 
+      context: ./LifeHackUI
+
   neo4j:
-    container_name: neo4j-lifehack
+    container_name: lifehack-neo4j
     image: neo4j:3.4
     ports:
       - "7474:7474"
@@ -19,19 +54,19 @@ services:
 
   #Data Access Layer Endpoint
   data:
-    container_name: data-lifehack
+    container_name: lifehack-data
     image: tomcat:latest
     ports:
       - "8080:8080"
     volumes:
-      - ./LifeHack.Data/webapps:/usr/local/tomcat/webapps
-      - ./LifeHack.Data/logs:/usr/local/tomcat/logs
+      - ./LifeHack.Data/target/webapps:/usr/local/tomcat/webapps
     links:
       - neo4j
 
   #Main C# .Net Core Api for the Application Services
   api:
-    container_name: api-lifehack
+    container_name: lifehack-api
+    working_dir: /api/
     image: mcr.microsoft.com/dotnet/core/sdk:2.2
     command: dotnet /api/LifeHack.Api.dll
     restart: always
@@ -40,31 +75,19 @@ services:
     ports:
       - "8000:80"
     volumes: 
-      - ./wwwroot/api/:/api/
+      - ./LifeHack/LifeHack.Api/bin/Debug/netcoreapp2.2/publish:/api/
     links: 
       - neo4j
       - data
 
-  #Selenium Hub container
-  # hub:
-  #   ports:
-  #     - 4444:4444
-  #   image: selenium/hub:3.141.5-astatine
-  #   volumes:
-  #     - /dev/shm/:/dev/shm/
-
-  # #Selenium chrome driver container
-  # chrome:
-  #   environment:
-  #     VIRTUAL_HOST: node.chrome.docker
-  #     HUB_PORT_4444_TCP_ADDR: hub
-  #     HUB_PORT_4444_TCP_PORT: 4444
-  #     NODE_MAX_INSTANCES: 5
-  #     NODE_MAX_SESSION: 5
-  #   image: selenium/node-chrome-debug:3.141.5-astatine
-  #   ports:
-  #     - 5900:5900
-  #   links:
-  #     - hub
-  #   volumes:
-  #     - /dev/shm/:/dev/shm/
+  web:
+    image: nginx:alpine
+    container_name: lifehack-web
+    ports: 
+      - "4200:80"
+    volumes: 
+      - ./LifeHackUI/dist/LifeHackUI:/usr/share/nginx/html
+    links: 
+      - neo4j
+      - data
+      - api

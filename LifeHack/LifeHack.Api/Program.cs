@@ -14,7 +14,7 @@ namespace LifeHack.Api
             WebHost.CreateDefaultBuilder(args)
                 .ConfigureAppConfiguration((buildercontext, config) =>
                 {
-                    config.AddJsonFile("./api/appsettings.json", optional: true);
+                    config.AddJsonFile("appsettings.json", optional: true);
                 })
                 .UseStartup<Startup>();
     }

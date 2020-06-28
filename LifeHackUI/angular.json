@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "LifeHackUI"
+    }
+  },
+  "defaultProject": "LifeHackUI",
+  "cli": {
+    "analytics": "cffab53c-7b5f-48fe-843a-d86e9a21fa38"
+  }
 }
