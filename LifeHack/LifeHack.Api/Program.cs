@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 
 namespace LifeHack.Api
 {
@@ -9,6 +10,12 @@ namespace LifeHack.Api
         {
             CreateWebHostBuilder(args).Build().Run();
         }
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>  WebHost.CreateDefaultBuilder(args).UseStartup<Startup>();
+        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>  
+            WebHost.CreateDefaultBuilder(args)
+                .ConfigureAppConfiguration((buildercontext, config) =>
+                {
+                    config.AddJsonFile("./api/appsettings.json", optional: true);
+                })
+                .UseStartup<Startup>();
     }
 }
