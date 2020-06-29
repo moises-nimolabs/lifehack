@@ -10,6 +10,8 @@ namespace LifeHack.Domain.Models
     {
         [JsonProperty("name")]
         public string Name { get; set; }
+        [JsonProperty("sequence")]
+        public int Sequence { get; set; }
         [JsonProperty("goals")]
         public List<Goal> Goals { get; set; }
     }

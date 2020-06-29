@@ -9,5 +9,6 @@
 </div>
 
 <div class="content" role="main">
-  <app-treeview [items]="list"></app-treeview>
+  <app-person [person]="personGoals.person"></app-person>
+  <app-treeview [goals]="personGoals.availableGoals"></app-treeview>
 </div>

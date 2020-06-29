@@ -6,7 +6,6 @@ services:
   # build: docker-compose run build-data mvn clean install deploy
   maven:
     image: maven:3.3-jdk-8
-    container_name: maven
     working_dir: /home/app/src/
     volumes: 
       - ./LifeHack.Data/:/home/app/src/
@@ -19,7 +18,6 @@ services:
   # publish: docker-compose run build-api dotnet publish
   netcore:
     image: mcr.microsoft.com/dotnet/core/sdk:2.2
-    container_name: netcore
     working_dir: /src/
     volumes: 
       - ./LifeHack/:/src/
@@ -29,12 +27,11 @@ services:
   # build: docker-compose run build-web npm run-script dist
   node:
     image: node:12.2.0
-    container_name: angular-cli
     working_dir: /src/
     volumes: 
       - ./LifeHackUI/:/src/
     build: 
-      context: ./LifeHackUI
+      context: ./LifeHackUI/
 
   # database container, must be running before all other containers
   db:

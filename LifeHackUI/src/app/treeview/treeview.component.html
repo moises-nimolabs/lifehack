@@ -1,11 +1,11 @@
 <ul class="tree-view">
-  <li class="tree-view-li" *ngFor="let goal of items">
-    <div class="tree-view-title" (click)="onExpand(goal)" [ngClass]="{'three-view-title-expanded' : goal.expanded}"
+  <li class="tree-view-li" *ngFor="let goal of goals">
+    <div class="tree-view-title" (click)="onClick(goal)" [ngClass]="{'three-view-title-expanded' : goal.expanded}"
          [ngClass]="{'three-view-title-final': !goal.goals}">
       <span class="tree-view-title-value"> {{ goal.name }} </span>
     </div>
     <ul *ngIf="goal.goals && goal.expanded">
-      <app-treeview [items]="goal.goals"></app-treeview>
+      <app-treeview [goals]="goal.goals"></app-treeview>
     </ul>
   </li>
 </ul>

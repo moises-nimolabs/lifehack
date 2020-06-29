@@ -72,10 +72,25 @@ By using a `shell`, browse to the
 ```
 docker-compose run --rm maven mvn clean install deploy  
 docker-compose run --rm netcore dotnet publish
-docker-compose run --rm node npm install --no-bin-links
-docker-compose run --rm node npm install -g @angular/cli --no-bin-links
-docker-compose run --rm node npm run-script dist --no-bin-links
 ```
+
+## Build Web UI Application
+Enter the `Docker` node container by executing: 
+```
+docker-compose run --rm node bash
+```
+You'll be inside the docker container to perform the required npm installations. Once there, run the commands in the following order: 
+
+```
+npm install -g @angular/cli
+npm install --no-bin-links
+npm run-script dist --no-bin-links
+
+```
+`Don't worry about space, since the container will be discarded when this process is finished.` 
+You should only care about having two new directories under the `./LifeHackUI` folder.  
+* dist
+* node_modules
 
 ## Clean up unused containers  
 This will save extra space on your system in case docker complains.  

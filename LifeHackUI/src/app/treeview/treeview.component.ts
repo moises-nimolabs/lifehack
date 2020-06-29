@@ -7,22 +7,23 @@ import {Goal} from '../models/goal';
   styleUrls: ['./treeview.component.css']
 })
 export class TreeviewComponent implements OnInit {
-  @Input() items: Goal[];
-
+  @Input() goals: Goal[];
   ngOnInit(): void {
   }
 
-  onExpand(item: Goal): void {
-    console.log('clicked');
-    if (item.expanded) {
-      item.expanded = !item.expanded;
-      return;
-    } else {
-      if (item.goals) {
-        if (item.goals.length > 0) {
-          item.expanded = true;
-        } else {
-          item.expanded = false;
+  onClick(item: Goal): void {
+    if (item.canExpand && item.canExpand()) {
+      console.log('**** can expand');
+      if (item.expanded) {
+        item.expanded = !item.expanded;
+        return;
+      } else {
+        if (item.goals) {
+          if (item.goals.length > 0) {
+            item.expanded = true;
+          } else {
+            item.expanded = false;
+          }
         }
       }
     }
