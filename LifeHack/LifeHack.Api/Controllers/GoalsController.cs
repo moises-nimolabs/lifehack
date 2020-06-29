@@ -31,7 +31,7 @@ namespace LifeHack.Api.Controllers
         public async Task<Goal> Get()
         {
             var client = _clientFactory.CreateClient();
-            var request = new HttpRequestMessage(HttpMethod.Get, $"{_lifeHackDataEndpoint}/goal/?id=1");
+            var request = new HttpRequestMessage(HttpMethod.Get, $"{_lifeHackDataEndpoint}/goal/");
             var response = await client.SendAsync(request);
             var responseObject = await response.Content.ReadAsAsync<Goal>();
 

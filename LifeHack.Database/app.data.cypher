@@ -1,4 +1,4 @@
-/*Initial Data*/
+//create goal nodes
 create(b:Goal{name:'What will I do with my life?', sequence: 1})
 create(s:Goal{name:'I go to the School', sequence: 2})
 create(g:Goal{name:'I go to the Gym', sequence: 2})
@@ -9,6 +9,7 @@ create(p:Goal{name:'I want to be a Professional', sequence: 3})
 create(r:Goal{name:'I became Rich', sequence: 4})
 create(o:Goal{name:'I became Poor', sequence: 4})
 
+//create goal relationships
 CREATE (b)-[r1:Path]->(s)
 CREATE (b)-[r2:Path]->(g)
 CREATE (g)-[r3:Path]->(i)
@@ -16,18 +17,8 @@ CREATE (g)-[r4:Path]->(f)
 CREATE (s)-[r5:Path]->(a)
 CREATE (s)-[r6:Path]->(p)
 
+//create end result goal relationships
 CREATE (i)-[r7:Path]->(o)
 CREATE (f)-[r8:Path]->(r)
-
-
 CREATE (a)-[r9:Path]->(o)
 CREATE (p)-[r10:Path]->(r)
-/*
-Only comment when using to create a person for testing
-
-
-CREATE(person:Person{name:'Paul'})
-CREATE(person)<-[:ChosenBy]-(s)
-CREATE(person)<-[:ChosenBy]-(p)
-CREATE(person)<-[:ChosenBy]-(o)
-*/

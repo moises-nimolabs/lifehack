@@ -78,9 +78,21 @@
                 <artifactId>maven-war-plugin</artifactId>
                 <version>3.3.0</version>
                 <configuration>
-                    <warName>lifehackdata</warName>
+                    <warName>ROOT</warName>
                     <outputDirectory>target/webapps</outputDirectory>
                 </configuration>
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <id>war-exploded</id>-->
+<!--                        <phase>deploy</phase>-->
+<!--                        <configuration>-->
+<!--                            <webappDirectory>target/webapps</webappDirectory>-->
+<!--                        </configuration>-->
+<!--                        <goals>-->
+<!--                            <goal>exploded</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                </executions>-->
             </plugin>
         </plugins>
     </build>

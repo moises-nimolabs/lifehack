@@ -12,10 +12,10 @@ namespace LifeHack.Api
         }
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>  
             WebHost.CreateDefaultBuilder(args)
-                .ConfigureAppConfiguration((buildercontext, config) =>
-                {
-                    config.AddJsonFile("appsettings.json", optional: true);
-                })
+                // .ConfigureAppConfiguration((buildercontext, config) =>
+                // {
+                //     config.AddJsonFile("appsettings.json", optional: true);
+                // })
                 .UseStartup<Startup>();
     }
 }

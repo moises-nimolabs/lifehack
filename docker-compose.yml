@@ -4,10 +4,10 @@ services:
 
   # clean: docker-compose run build-data mvn clean
   # build: docker-compose run build-data mvn clean install deploy
-  build-data:
+  maven:
     image: maven:3.3-jdk-8
-    container_name: lifehack-build-data
-    working_dir: /home/app/src/   
+    container_name: lifehack-maven
+    working_dir: /home/app/src/
     volumes: 
       - ./LifeHack.Data/:/home/app/src/
       - ./LifeHack.Data/target/:/home/app/target/
@@ -17,17 +17,17 @@ services:
   # clean: docker-compose run build-api dotnet clean
   # build: docker-compose run build-api dotnet build
   # publish: docker-compose run build-api dotnet publish
-  build-api:
+  netcore:
     image: mcr.microsoft.com/dotnet/core/sdk:2.2
     container_name: lifehack-build-api
-    working_dir: /api/
+    working_dir: /src/
     volumes: 
-      - ./LifeHack/:/api/
+      - ./LifeHack/:/src/
     build: 
       context: ./LifeHack/
 
   # build: docker-compose run build-web npm run-script dist
-  build-web:
+  angular-cli:
     image: node:12.2.0
     container_name: lifehack-build-web
     working_dir: /web/
@@ -36,24 +36,26 @@ services:
     build: 
       context: ./LifeHackUI
 
-  neo4j:
+  # database container, must be running before all other containers
+  db:
     container_name: lifehack-neo4j
     image: neo4j:3.4
     ports:
       - "7474:7474"
       - "7687:7687"
+    environment: 
+      - NEO4J_HEAP_MEMORY=2048
+      - NEO4J_CACHE_MEMORY=1G
+      - NEO4JLABS_PLUGINS=[\"apoc\"\]
+      - NEO4J_AUTH=neo4j/@abc123
     expose:
       - "7474"
       - "7687"
     volumes:
-      - ./db/data:/data
-    environment:
-      - NEO4J_HEAP_MEMORY=2048
-      - NEO4J_CACHE_MEMORY=1G
-      - NEO4J_AUTH=neo4j/@abc123
+      - ./LifeHack.Database/backup:/var/lib/neo4j/backup/
 
   #Data Access Layer Endpoint
-  data:
+  data-api:
     container_name: lifehack-data
     image: tomcat:latest
     ports:
@@ -61,14 +63,14 @@ services:
     volumes:
       - ./LifeHack.Data/target/webapps:/usr/local/tomcat/webapps
     links:
-      - neo4j
+      - db
 
   #Main C# .Net Core Api for the Application Services
   api:
     container_name: lifehack-api
     working_dir: /api/
     image: mcr.microsoft.com/dotnet/core/sdk:2.2
-    command: dotnet /api/LifeHack.Api.dll
+    command: dotnet ./LifeHack.Api.dll
     restart: always
     environment: 
       ASPNETCORE_ENVIRONMENT: Development
@@ -77,8 +79,8 @@ services:
     volumes: 
       - ./LifeHack/LifeHack.Api/bin/Debug/netcoreapp2.2/publish:/api/
     links: 
-      - neo4j
-      - data
+      - db
+      - data-api
 
   web:
     image: nginx:alpine
@@ -88,6 +90,6 @@ services:
     volumes: 
       - ./LifeHackUI/dist/LifeHackUI:/usr/share/nginx/html
     links: 
-      - neo4j
-      - data
+      - db
+      - data-api
       - api
