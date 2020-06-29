@@ -57,17 +57,14 @@ public class PersonController {
             existing.goals = new HashSet<>();
         }
         for (Goal g : person.goals) {
-            if (existing.goals.contains(g)) {
-                throw new InvalidObjectException("Person already chosen that goal!");
-            }
             Optional<Goal> goal = goalRepository.findById(g.id);
             if (!goal.isPresent()) {
                 throw new InvalidObjectException("Invalid goal!");
             }
             existing.goals.add(goal.get());
-            personRepository.delete(existing);
-            existing.id = null;
         }
+        personRepository.delete(existing);
+        existing.id = null;
         personRepository.save(existing);
         return existing;
     }

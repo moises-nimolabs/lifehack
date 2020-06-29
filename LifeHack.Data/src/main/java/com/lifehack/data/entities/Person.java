@@ -1,13 +1,16 @@
 package com.lifehack.data.entities;
 
-import org.neo4j.ogm.annotation.NodeEntity;
-import org.neo4j.ogm.annotation.Property;
-import org.neo4j.ogm.annotation.Relationship;
+import org.neo4j.ogm.annotation.*;
 
+import javax.xml.bind.annotation.XmlElement;
 import java.util.Set;
 
-@NodeEntity
-public class Person extends Entity {
+@NodeEntity("Person")
+public class Person {
+    @Id
+    @GeneratedValue
+    @XmlElement
+    public Long id;
     @Property
     public String name;
     @Relationship(type = "ChosenBy", direction = Relationship.INCOMING)
