@@ -8,12 +8,12 @@ import {Goal} from '../models/goal';
 })
 export class TreeviewComponent implements OnInit {
   @Input() goals: Goal[];
+
   ngOnInit(): void {
   }
 
   onClick(item: Goal): void {
     if (item.canExpand && item.canExpand()) {
-      console.log('**** can expand');
       if (item.expanded) {
         item.expanded = !item.expanded;
         return;

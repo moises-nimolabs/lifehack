@@ -30,7 +30,7 @@ namespace LifeHack.Api.Controllers
         [HttpPost]
         public async Task<Person> Post(Person model)
         {
-            var request = new HttpRequestMessage(HttpMethod.Get, $"{_lifeHackDataEndpoint}/person");
+            var request = new HttpRequestMessage(HttpMethod.Post, $"{_lifeHackDataEndpoint}/person");
             request.Method = HttpMethod.Post;
             request.Content = new StringContent(JsonConvert.SerializeObject(model));
             var client = _clientFactory.CreateClient();
