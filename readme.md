@@ -62,7 +62,7 @@ The application settings are enlisted below:
 ## Build all applications Using Docker
 Òpen any shell app in the root solution folder to follow this whole section.
 ```
-docker-compose build`
+docker-compose build
 ```
 
 One by one I suggest them to be built using `Docker` to avoid conflicts with platform binaries.  
@@ -70,7 +70,7 @@ With the run command we need to make sure to remove the `containers` used to per
 By using a `shell`, browse to the
 
 ```
-docker-compose run --rm maven mvn clean install deploy  
+docker-compose run --rm maven mvn clean install deploy
 docker-compose run --rm netcore dotnet publish
 ```
 
@@ -89,8 +89,8 @@ npm run-script dist --no-bin-links
 ```
 `Don't worry about space, since the container will be discarded when this process is finished.` 
 You should only care about having two new directories under the `./LifeHackUI` folder.  
-* dist
-* node_modules
+* node_modules `used by the compiler`  
+* dist `used by the container`  
 
 ## Clean up unused containers  
 This will save extra space on your system in case docker complains.  
