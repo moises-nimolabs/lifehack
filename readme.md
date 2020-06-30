@@ -78,15 +78,17 @@ docker-compose run --rm netcore dotnet publish
 Enter the `Docker` node container by executing: 
 ```
 docker-compose run --rm node bash
+docker-compose run --rm node cd src && npm install -g @angular/cli --no-bin-links && npm install --no-bin-links && npm run-script dist --no-bin-links
+
 ```
 You'll be inside the docker container to perform the required npm installations. Once there, run the commands in the following order: 
 `IMPORTANT: wait for all the processes to finish to proceed to the next`  
 `IMPORTANT: since I use Docker Linux containers, I make sure --no-bin-links is added as parameter to avoid conflicts with the packages`  
 `IMPORTANT: angular installation and normal npm installation requires confirmation, make sure you confirm`  
 ```
-npm install -g @angular/cli
-npm install --no-bin-links
-npm run-script dist --no-bin-links
+npm install -g @angular/cli --no-bin-links && npm install --no-bin-links && npm run-script dist --no-bin-links
+
+
 
 ```
 `Don't worry about space, since the container will be discarded when this process is finished.` 
