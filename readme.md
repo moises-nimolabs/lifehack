@@ -60,11 +60,6 @@ The application settings are enlisted below:
 * LifeHackUI/src/environments/environment.prod.ts  
 
 ## Build all applications Using Docker
-Òpen any shell app in the root solution folder to follow this whole section.
-```
-docker-compose build
-```
-
 One by one I suggest them to be built using `Docker` to avoid conflicts with platform binaries.  
 With the run command we need to make sure to remove the `containers` used to perform the `run` tasks.  
 By using a `shell`, browse to the
