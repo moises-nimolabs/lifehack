@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Optional;
+
 /***
  * Queries the Goals.
  * By default the Goals aren't interchangeable.
@@ -22,7 +24,11 @@ public class GoalController {
 
     @GetMapping(value = "/goal/", produces = {"application/json"})
     public Goal get() {
-        Goal response = goalRepository.findBySequence(1).get();
-        return response;
+        Optional<Goal> optional = goalRepository.findBySequence(1);
+        if (optional.isPresent()) {
+            Goal response = goalRepository.findBySequence(1).get();
+            return response;
+        }
+        return null;
     }
 }

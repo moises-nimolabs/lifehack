@@ -104,6 +104,8 @@ Perform the initial database script:
 ```
 docker-compose exec db bash -c "cat /var/lib/neo4j/import/app.data.cypher | bin/cypher-shell -u neo4j -p @abc123"
 ```
+`IMPORTANT: It can happen that the container is completely erased after it's discarded, in that case you always need to check if the initial data is available. To avoid this problem, I've mapped the Neo4J data folder to the LifeHack.Database/data folder.`  
+
 
 You should be able to see the results of the initial load by running a simple query in the `Cypher Query Runner`:  
 ```
@@ -116,6 +118,19 @@ You should be able to see all the application pre-configured nodes bouncing arou
 
 ## Running the Applications  
 I suggest that you load the applications only when the `Database` is fully loaded.  
+You can either run all of them using the command:
+
+```
+docker-compose up -d data-api api web
+```
+
+You can use an attached console to see if any error occurs:
+
+```
+docker-compose up data-api api web
+```
+
+Or you can choose the path of loading one by one by following the next sections.
 
 ### Data Layer  
 Now it's time to run the Data Layer Application.  

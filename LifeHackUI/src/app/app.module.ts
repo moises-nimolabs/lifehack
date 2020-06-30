@@ -32,7 +32,7 @@ import {HomePageComponent} from './home-page/home-page.component';
     RouterModule.forRoot([
       {path: 'home', redirectTo: '/home', pathMatch: 'full'},
       {path: 'diagram', redirectTo: '/diagram', pathMatch: 'full'}
-    ])
+    ], {useHash: true})
   ],
   providers: [],
   bootstrap: [AppComponent]
