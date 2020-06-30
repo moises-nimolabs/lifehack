@@ -8,7 +8,7 @@
 /bazel-out
 
 # database
-**/LifeHack.Database/data
+/LifeHack.Database/data
 
 # dependencies
 /node_modules

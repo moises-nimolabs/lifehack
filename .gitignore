@@ -67,3 +67,4 @@ build/
 .settings
 .springBeans
 .sts4-cache
+LifeHack.Database/data/
