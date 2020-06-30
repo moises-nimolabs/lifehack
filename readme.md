@@ -151,7 +151,11 @@ To run it, issue the command:
 docker-compose up -d web
 ```
 
+When it's fully loaded you can see the results on the endpoint `http://192.168.99.100:4200/#/home`
+
 The user interactions can be done by clicking on the questions provided by the front-end, allowing for the user to see his life path through a series of questions/answers.
+
+To see the complete interactive diagram, access the endpoint `http://192.168.99.100:4200/#/diagram`
 
 You can check the final interactions by querying the database directly.  
 
