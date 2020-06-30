@@ -49,7 +49,7 @@ services:
       - "7474"
       - "7687"
     volumes:
-      - ./LifeHack.Database/backup:/var/lib/neo4j/backup/
+      - ./LifeHack.Database/import:/var/lib/neo4j/import/
 
   #Data Access Layer Endpoint
   data-api:

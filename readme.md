@@ -81,6 +81,8 @@ You should only care about having two new directories under the `./LifeHackUI` f
 
 ## Clean up unused containers  
 This will save extra space on your system in case docker complains.  
+`WARNING: if you are a developer that makes heavy use of Docker and don't want to loose existing containers, 
+please skip this step.`
 ```
 docker container prune
 ```
@@ -92,17 +94,18 @@ It'll make it easier and avoid unintended crashes throughout all the application
 ```
 docker-compose up -d db
 ```
-
-`IMPORTANT: the db can take up to 30 seconds to fully load`  
-
-The `db` container should be available at the address: `http://192.168.99.100:7474`. 
-Use the following credentials:  
-* bolt: `bolt://192.168.99.100:7687`  
+`IMPORTANT: the db can take up to 20 seconds to fully load, when it's finished, proceed to the next step.`
+The database has a remote connector listening on the address: `http://192.168.99.100:7474`
+* bolt: `http://192.168.99.100:7687`  
 * user: `neo4j`  
-* pass: `@abc123`  
+* pass: `@abc123`
 
-Copy the text from `LifeHack.Database/app.data.cypher` and paste in the `Cypher Query Runner` and click play.  
-You should be able to see the results by running a simple query in the `Cypher Query Runner`:  
+Perform the initial database script:
+```
+docker-compose exec db bash -c "cat /var/lib/neo4j/import/app.data.cypher | bin/cypher-shell -u neo4j -p @abc123"
+```
+
+You should be able to see the results of the initial load by running a simple query in the `Cypher Query Runner`:  
 ```
 match(n) return n
 ```  
