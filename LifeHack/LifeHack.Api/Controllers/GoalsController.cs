@@ -28,7 +28,7 @@ namespace LifeHack.Api.Controllers
         /// </summary>
         /// <returns>The main Goal with child three object Goals</returns>
         [HttpGet]
-        public async Task<Goal> Get()
+        public virtual async Task<Goal> Get()
         {
             var client = _clientFactory.CreateClient();
             var response = await client.GetAsync($"{_lifeHackDataEndpoint}/goal/");

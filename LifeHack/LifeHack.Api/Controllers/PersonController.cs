@@ -28,7 +28,7 @@ namespace LifeHack.Api.Controllers
         /// <param name="model">The underlying Person</param>
         /// <returns>the updated model</returns>
         [HttpPost]
-        public async Task<Person> Post(Person model)
+        public virtual async Task<Person> Post(Person model)
         {
             var client = _clientFactory.CreateClient();
             var response = await client.PostAsJsonAsync($"{_lifeHackDataEndpoint}/person/", model);

@@ -70,7 +70,7 @@ With the run command we need to make sure to remove the `containers` used to per
 By using a `shell`, browse to the
 
 ```
-docker-compose run --rm maven mvn clean install deploy
+docker-compose run --rm maven mvn clean install
 docker-compose run --rm netcore dotnet publish
 ```
 
@@ -80,7 +80,9 @@ Enter the `Docker` node container by executing:
 docker-compose run --rm node bash
 ```
 You'll be inside the docker container to perform the required npm installations. Once there, run the commands in the following order: 
-
+`IMPORTANT: wait for all the processes to finish to proceed to the next`  
+`IMPORTANT: since I use Docker Linux containers, I make sure --no-bin-links is added as parameter to avoid conflicts with the packages`  
+`IMPORTANT: angular installation and normal npm installation requires confirmation, make sure you confirm`  
 ```
 npm install -g @angular/cli
 npm install --no-bin-links
@@ -105,6 +107,8 @@ It'll make it easier and avoid unintended crashes throughout all the application
 ```
 docker-compose up -d db
 ```
+
+`IMPORTANT: the db can take up to 30 seconds to fully load`  
 
 The `db` container should be available at the address: `http://192.168.99.100:7474`. 
 Use the following credentials:  
@@ -151,3 +155,8 @@ docker-compose up -d web
 
 The user interactions can be done by clicking on the questions provided by the front-end, allowing for the user to see his life path through a series of questions/answers.
 
+You can check the final interactions by querying the database directly.  
+
+```
+match(n) return n
+```
