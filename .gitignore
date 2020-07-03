@@ -1,4 +1,6 @@
+# Root
 db
+node_modules
 
 *.swp
 *.*~

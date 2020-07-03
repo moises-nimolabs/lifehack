@@ -2,9 +2,10 @@
 version: '3'
 services:
 
-  # clean: docker-compose run build-data mvn clean
-  # build: docker-compose run build-data mvn clean install deploy
+  # clean: docker-compose run --rm maven mvn clean
+  # build: docker-compose run --rm maven mvn clean install
   maven:
+    container_name: lifehack-maven
     image: maven:3.3-jdk-8
     working_dir: /home/app/src/
     volumes: 
@@ -13,9 +14,9 @@ services:
     build: 
       context: ./LifeHack.Data/
 
-  # clean: docker-compose run build-api dotnet clean
-  # build: docker-compose run build-api dotnet build
-  # publish: docker-compose run build-api dotnet publish
+  # clean: docker-compose run --rm netcore dotnet clean
+  # build: docker-compose run --rm netcore dotnet build
+  # publish: docker-compose run --rm netcore dotnet publish
   netcore:
     image: mcr.microsoft.com/dotnet/core/sdk:2.2
     working_dir: /src/
@@ -24,7 +25,7 @@ services:
     build: 
       context: ./LifeHack/
 
-  # build: docker-compose run build-web npm run-script dist
+  # build: docker-compose run --rm node bash -c "yarn install --no-bin-links && npm run-script dist"
   node:
     image: node:12.2.0
     working_dir: /src/

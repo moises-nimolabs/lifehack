@@ -1,0 +1,16 @@
+{
+  "name": "lifehack",
+  "version": "1.0.0",
+  "description": "This is a simple project to test user choices in order to reach a spcific goal at the end of the questions.  \r * Each question has two possible answers  \r * Each answer opens up a question with two new questions  \r * At the end of the process the User should know which path he chosen  \r * The system should `persist` the user choices",
+  "main": "index.js",
+  "scripts": {
+    "shutdown": "docker-compose down"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "gulp": "^4.0.2",
+    "gulp-run-command": "^0.0.10",
+    "gulp-shell": "^0.8.0"
+  }
+}
